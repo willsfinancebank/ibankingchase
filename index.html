@@ -1,0 +1,2041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Chase Bank – Personal & Business Banking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --chase-blue: #0d2b5e;
+            --chase-blue-dark: #071a3a;
+            --chase-blue-light: #1a3f7a;
+            --chase-gold: #f5a623;
+            --chase-gold-light: #f7c35c;
+            --chase-gold-pale: #fef5e0;
+            --chase-gray: #f5f7fa;
+            --chase-gray-border: #e2e6ee;
+            --chase-text: #1a1a2e;
+            --chase-text-light: #5a6a7e;
+            --chase-white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(13, 43, 94, 0.06);
+            --shadow-md: 0 8px 32px rgba(13, 43, 94, 0.10);
+            --shadow-lg: 0 16px 48px rgba(13, 43, 94, 0.14);
+            --radius: 12px;
+            --radius-lg: 20px;
+            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--chase-white);
+            color: var(--chase-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        button {
+            cursor: pointer;
+            font-family: inherit;
+            border: none;
+            outline: none;
+            background: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--chase-gray);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--chase-blue);
+            border-radius: 3px;
+        }
+
+        /* ===== ANNOUNCEMENT BAR ===== */
+        .announcement-bar {
+            background: var(--chase-blue-dark);
+            color: var(--chase-white);
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            text-align: center;
+            position: relative;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+        }
+        .announcement-bar .highlight {
+            color: var(--chase-gold);
+            font-weight: 600;
+        }
+        .announcement-bar a {
+            color: var(--chase-gold-light);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .announcement-bar .close-announce {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            transition: var(--transition);
+            font-size: 0.9rem;
+            padding: 4px 8px;
+        }
+        .announcement-bar .close-announce:hover {
+            color: var(--chase-white);
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: var(--chase-white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            transition: var(--transition);
+            width: 100%;
+        }
+        .header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+            padding: 0 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--chase-blue);
+            letter-spacing: -0.5px;
+            flex-shrink: 0;
+        }
+        .logo-icon {
+            width: 34px;
+            height: 34px;
+            background: var(--chase-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--chase-white);
+            font-size: 1.1rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            list-style: none;
+            transition: var(--transition);
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--chase-text);
+            transition: var(--transition);
+            position: relative;
+            padding: 4px 0;
+            white-space: nowrap;
+        }
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--chase-blue);
+            transition: var(--transition);
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        .nav-links a:hover {
+            color: var(--chase-blue);
+        }
+        .nav-links a.active {
+            color: var(--chase-blue);
+            font-weight: 600;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            white-space: nowrap;
+        }
+        .btn-primary {
+            background: var(--chase-blue);
+            color: var(--chase-white);
+            border-color: var(--chase-blue);
+        }
+        .btn-primary:hover {
+            background: var(--chase-blue-light);
+            border-color: var(--chase-blue-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(13, 43, 94, 0.25);
+        }
+        .btn-outline {
+            border-color: var(--chase-blue);
+            color: var(--chase-blue);
+        }
+        .btn-outline:hover {
+            background: var(--chase-blue);
+            color: var(--chase-white);
+            transform: translateY(-2px);
+        }
+        .btn-gold {
+            background: var(--chase-gold);
+            color: var(--chase-blue);
+            border-color: var(--chase-gold);
+        }
+        .btn-gold:hover {
+            background: var(--chase-gold-light);
+            border-color: var(--chase-gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(245, 166, 35, 0.3);
+        }
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 0.8rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            padding: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background: var(--chase-blue);
+            border-radius: 2px;
+            transition: var(--transition);
+            transform-origin: center;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ===== HERO SLIDER ===== */
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            max-height: 720px;
+            min-height: 480px;
+            overflow: hidden;
+            background: var(--chase-blue-dark);
+            touch-action: pan-y;
+        }
+
+        .slider-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.85s cubic-bezier(0.65, 0, 0.35, 1);
+            will-change: transform;
+        }
+
+        .slide {
+            flex: 0 0 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .slide-1 {
+            background: linear-gradient(135deg, #0d2b5e 0%, #1a3f7a 40%, #2a5a9a 100%);
+        }
+        .slide-2 {
+            background: linear-gradient(135deg, #071a3a 0%, #0d2b5e 50%, #1a3f7a 100%);
+        }
+        .slide-3 {
+            background: linear-gradient(135deg, #1a3f7a 0%, #0d2b5e 50%, #071a3a 100%);
+        }
+        .slide-4 {
+            background: linear-gradient(135deg, #0d2b5e 0%, #1a3f7a 30%, #2a5a9a 70%, #0d2b5e 100%);
+        }
+
+        .slide::before {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            right: -100px;
+            top: -150px;
+            background: rgba(255, 255, 255, 0.03);
+            pointer-events: none;
+        }
+        .slide::after {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            left: -80px;
+            bottom: -120px;
+            background: rgba(245, 166, 35, 0.04);
+            pointer-events: none;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            max-width: 560px;
+            color: var(--chase-white);
+            width: 100%;
+        }
+
+        .slide-content .badge {
+            display: inline-block;
+            background: rgba(245, 166, 35, 0.15);
+            color: var(--chase-gold-light);
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(245, 166, 35, 0.15);
+            backdrop-filter: blur(4px);
+        }
+
+        .slide-content h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+            margin-bottom: 14px;
+        }
+        .slide-content h1 .gold {
+            color: var(--chase-gold);
+        }
+        .slide-content p {
+            font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 480px;
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .slide-content .slide-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .slide-content .slide-actions .btn-gold {
+            padding: 12px 28px;
+            font-size: 0.95rem;
+        }
+        .slide-content .slide-actions .btn-outline-light {
+            border-color: rgba(255, 255, 255, 0.3);
+            color: var(--chase-white);
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+        }
+        .slide-content .slide-actions .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--chase-white);
+            transform: translateY(-2px);
+        }
+
+        /* Slide visual / card */
+        .slide-visual {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            width: 360px;
+            height: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.9;
+            pointer-events: none;
+        }
+        .slide-visual .circle-bg {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .slide-visual .icon-wrap {
+            font-size: 6rem;
+            color: rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        .slide-visual .icon-wrap i {
+            display: block;
+            font-size: 5rem;
+            color: var(--chase-gold);
+            opacity: 0.6;
+        }
+        .slide-visual .icon-wrap .label {
+            display: block;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+            margin-top: 6px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .slide-card {
+            position: absolute;
+            right: 6%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+            width: 300px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg);
+            padding: 24px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+            color: var(--chase-white);
+            pointer-events: none;
+        }
+        .slide-card .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .slide-card .card-top .card-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+        .slide-card .card-top .card-chip {
+            font-size: 1.2rem;
+            color: var(--chase-gold);
+        }
+        .slide-card .card-balance {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 2px;
+        }
+        .slide-card .card-balance-sub {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 14px;
+        }
+        .slide-card .card-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.5);
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-family: "Inter", monospace;
+            letter-spacing: 0.5px;
+        }
+
+        /* Slider controls */
+        .slider-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        .slider-controls .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            padding: 0;
+            flex-shrink: 0;
+        }
+        .slider-controls .dot.active {
+            background: var(--chase-gold);
+            width: 32px;
+            border-radius: 6px;
+        }
+        .slider-controls .dot:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .slider-arrows {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 100%;
+            padding: 0 16px;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+        .slider-arrows button {
+            pointer-events: all;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--chase-white);
+            font-size: 1.1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .slider-arrows button:hover {
+            background: rgba(255, 255, 255, 0.16);
+            transform: scale(1.05);
+        }
+
+        /* ===== SECTION TITLES ===== */
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+        .section-subtitle {
+            color: var(--chase-text-light);
+            font-size: clamp(1rem, 1.2vw, 1.15rem);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features-section {
+            padding: 60px 0;
+            background: var(--chase-white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--chase-white);
+            border-radius: var(--radius);
+            padding: 28px 20px;
+            border: 1px solid var(--chase-gray-border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            cursor: pointer;
+        }
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--chase-blue);
+            transform: scaleX(0);
+            transition: var(--transition);
+            transform-origin: left;
+        }
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--chase-blue);
+        }
+        .feature-card .f-icon {
+            font-size: 2.2rem;
+            color: var(--chase-blue);
+            margin-bottom: 12px;
+            display: inline-block;
+            background: var(--chase-gray);
+            width: 64px;
+            height: 64px;
+            line-height: 64px;
+            border-radius: 50%;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .feature-card:hover .f-icon {
+            background: var(--chase-blue);
+            color: var(--chase-white);
+        }
+        .feature-card h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .feature-card p {
+            color: var(--chase-text-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .feature-card .badge {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--chase-blue);
+            background: var(--chase-gray);
+            padding: 2px 14px;
+            border-radius: 50px;
+        }
+
+        /* ===== STATS ===== */
+        .stats-section {
+            padding: 60px 0;
+            background: var(--chase-blue);
+            color: var(--chase-white);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 32px;
+            text-align: center;
+        }
+        .stats-grid .stat-item h3 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: var(--chase-gold);
+        }
+        .stats-grid .stat-item p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+
+        /* ===== SERVICES ===== */
+        .services-section {
+            padding: 60px 0;
+            background: var(--chase-gray);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+        }
+        .service-card {
+            background: var(--chase-white);
+            border-radius: var(--radius);
+            padding: 24px 16px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--chase-blue);
+        }
+        .service-card .s-icon {
+            font-size: 1.8rem;
+            color: var(--chase-blue);
+            margin-bottom: 8px;
+            display: block;
+        }
+        .service-card h5 {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+        .service-card p {
+            font-size: 0.8rem;
+            color: var(--chase-text-light);
+            margin-top: 2px;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-section {
+            padding: 60px 0;
+            background: var(--chase-white);
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+        .testimonial-card {
+            background: var(--chase-gray);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+        .testimonial-card:hover {
+            border-color: var(--chase-blue);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-2px);
+        }
+        .testimonial-card .stars {
+            color: var(--chase-gold);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .testimonial-card blockquote {
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--chase-text);
+            line-height: 1.7;
+            margin-bottom: 14px;
+        }
+        .testimonial-card .author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .testimonial-card .author .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--chase-blue);
+            color: var(--chase-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .testimonial-card .author .info .name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .testimonial-card .author .info .role {
+            font-size: 0.75rem;
+            color: var(--chase-text-light);
+        }
+
+        /* ===== CTA BANNER ===== */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--chase-blue-dark) 0%, var(--chase-blue) 100%);
+            padding: 60px 0;
+            color: var(--chase-white);
+            text-align: center;
+        }
+        .cta-banner h2 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+        .cta-banner p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: clamp(1rem, 1.2vw, 1.15rem);
+            max-width: 560px;
+            margin: 0 auto 28px;
+            padding: 0 16px;
+        }
+        .cta-banner .btn-gold {
+            padding: 14px 40px;
+            font-size: 1.05rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #071a2e;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 48px 0 24px;
+        }
+        .footer .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 32px;
+        }
+
+        .footer-brand .logo {
+            color: var(--chase-white);
+            margin-bottom: 10px;
+        }
+        .footer-brand .logo .logo-icon {
+            background: var(--chase-gold);
+            color: var(--chase-blue);
+        }
+        .footer-brand p {
+            font-size: 0.85rem;
+            max-width: 300px;
+            line-height: 1.7;
+        }
+        .footer-social {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+        .footer-social a:hover {
+            background: var(--chase-gold);
+            color: var(--chase-blue);
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            color: var(--chase-white);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .footer-col ul a {
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+        .footer-col ul a:hover {
+            color: var(--chase-white);
+            padding-left: 4px;
+        }
+
+        .footer-bottom {
+            grid-column: 1 / -1;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 20px;
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.75rem;
+        }
+        .footer-bottom .legal {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-bottom .legal a:hover {
+            color: var(--chase-white);
+        }
+
+        /* ============================================================ */
+        /* ===== RESPONSIVE BREAKPOINTS ===== */
+        /* ============================================================ */
+
+        /* Large tablets / small laptops */
+        @media (max-width: 1024px) {
+            .slide-content h1 {
+                font-size: clamp(1.8rem, 4vw, 2.6rem);
+            }
+            .slide-card {
+                width: 260px;
+                padding: 20px 22px;
+                right: 4%;
+            }
+            .slide-card .card-balance {
+                font-size: 1.5rem;
+            }
+            .slide-visual {
+                width: 280px;
+                height: 280px;
+                right: 2%;
+            }
+            .slide-visual .circle-bg {
+                width: 240px;
+                height: 240px;
+            }
+            .slide-visual .icon-wrap i {
+                font-size: 3.5rem;
+            }
+            .slide-visual .icon-wrap .label {
+                font-size: 0.65rem;
+            }
+            .footer .container {
+                grid-template-columns: 1fr 1fr;
+                gap: 28px;
+            }
+        }
+
+        /* Tablets & small laptops */
+        @media (max-width: 820px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                width: 100%;
+                background: var(--chase-white);
+                padding: 20px 24px;
+                box-shadow: var(--shadow-md);
+                gap: 12px;
+                border-top: 1px solid var(--chase-gray-border);
+                z-index: 99;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links a {
+                font-size: 1rem;
+                padding: 8px 0;
+                white-space: normal;
+            }
+            .nav-links a::after {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .nav-right .btn-outline {
+                display: none;
+            }
+
+            .hero-slider {
+                height: 80vh;
+                max-height: 600px;
+                min-height: 420px;
+            }
+            .slide {
+                padding: 0 20px;
+            }
+            .slide-content {
+                max-width: 100%;
+            }
+            .slide-content p {
+                max-width: 100%;
+            }
+            .slide-card {
+                display: none;
+            }
+            .slide-visual {
+                display: none;
+            }
+            .slider-arrows {
+                display: none;
+            }
+            .slider-controls {
+                bottom: 20px;
+            }
+
+            .section-title {
+                font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .stats-grid .stat-item h3 {
+                font-size: clamp(1.8rem, 4vw, 2.4rem);
+            }
+            .footer .container {
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .footer-bottom .legal {
+                gap: 14px;
+            }
+        }
+
+        /* Mobile phones */
+        @media (max-width: 600px) {
+            .announcement-bar {
+                font-size: 0.7rem;
+                padding: 6px 12px;
+                justify-content: center;
+                text-align: center;
+            }
+            .announcement-bar .close-announce {
+                right: 8px;
+                font-size: 0.8rem;
+            }
+
+            .nav {
+                height: 60px;
+                padding: 0 12px;
+            }
+            .logo {
+                font-size: 1.2rem;
+            }
+            .logo-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+            }
+            .nav-left {
+                gap: 12px;
+            }
+            .nav-right .btn-primary {
+                padding: 6px 14px;
+                font-size: 0.75rem;
+            }
+            .nav-right .btn-sm {
+                padding: 4px 12px;
+                font-size: 0.7rem;
+            }
+            .hamburger span {
+                width: 20px;
+                height: 2px;
+            }
+            .nav-links.open {
+                top: 60px;
+                padding: 16px 20px;
+            }
+
+            .hero-slider {
+                height: 70vh;
+                max-height: 480px;
+                min-height: 360px;
+            }
+            .slide {
+                padding: 0 16px;
+                align-items: flex-start;
+                padding-top: 20%;
+            }
+            .slide-content .badge {
+                font-size: 0.65rem;
+                padding: 2px 12px;
+                margin-bottom: 10px;
+            }
+            .slide-content h1 {
+                font-size: clamp(1.4rem, 5vw, 1.8rem);
+                margin-bottom: 10px;
+            }
+            .slide-content p {
+                font-size: 0.9rem;
+                margin-bottom: 18px;
+            }
+            .slide-content .slide-actions .btn-gold {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
+            .slide-content .slide-actions .btn-outline-light {
+                padding: 10px 18px;
+                font-size: 0.85rem;
+            }
+            .slider-controls {
+                bottom: 16px;
+                gap: 8px;
+            }
+            .slider-controls .dot {
+                width: 10px;
+                height: 10px;
+            }
+            .slider-controls .dot.active {
+                width: 24px;
+            }
+
+            .features-section {
+                padding: 40px 0;
+            }
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+            .feature-card {
+                padding: 20px 16px;
+            }
+            .feature-card .f-icon {
+                width: 52px;
+                height: 52px;
+                line-height: 52px;
+                font-size: 1.6rem;
+            }
+            .feature-card h4 {
+                font-size: 0.95rem;
+            }
+            .feature-card p {
+                font-size: 0.8rem;
+            }
+            .feature-card .badge {
+                font-size: 0.6rem;
+                padding: 2px 10px;
+            }
+
+            .stats-section {
+                padding: 40px 0;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .stats-grid .stat-item h3 {
+                font-size: 1.6rem;
+            }
+            .stats-grid .stat-item p {
+                font-size: 0.8rem;
+            }
+
+            .services-section {
+                padding: 40px 0;
+            }
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+            .service-card {
+                padding: 18px 12px;
+            }
+            .service-card .s-icon {
+                font-size: 1.5rem;
+            }
+            .service-card h5 {
+                font-size: 0.85rem;
+            }
+            .service-card p {
+                font-size: 0.7rem;
+            }
+
+            .testimonials-section {
+                padding: 40px 0;
+            }
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .testimonial-card {
+                padding: 20px 18px;
+            }
+            .testimonial-card blockquote {
+                font-size: 0.85rem;
+            }
+
+            .cta-banner {
+                padding: 40px 0;
+            }
+            .cta-banner h2 {
+                font-size: 1.6rem;
+            }
+            .cta-banner p {
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+            }
+            .cta-banner .btn-gold {
+                padding: 12px 28px;
+                font-size: 0.95rem;
+            }
+
+            .footer {
+                padding: 32px 0 16px;
+            }
+            .footer .container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .footer-brand p {
+                max-width: 100%;
+            }
+            .footer-col h4 {
+                margin-bottom: 10px;
+            }
+            .footer-col ul {
+                gap: 6px;
+            }
+            .footer-col ul a {
+                font-size: 0.8rem;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                font-size: 0.7rem;
+            }
+            .footer-bottom .legal {
+                gap: 12px;
+            }
+            .section-header {
+                margin-bottom: 28px;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .section-subtitle {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Very small phones */
+        @media (max-width: 400px) {
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .services-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .service-card {
+                padding: 14px 10px;
+            }
+            .service-card .s-icon {
+                font-size: 1.2rem;
+            }
+            .service-card h5 {
+                font-size: 0.8rem;
+            }
+            .service-card p {
+                font-size: 0.65rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .stats-grid .stat-item h3 {
+                font-size: 1.4rem;
+            }
+            .slide-content h1 {
+                font-size: 1.3rem;
+            }
+            .slide-content p {
+                font-size: 0.8rem;
+            }
+            .slide-content .slide-actions .btn-gold {
+                padding: 8px 16px;
+                font-size: 0.75rem;
+            }
+            .slide-content .slide-actions .btn-outline-light {
+                padding: 8px 14px;
+                font-size: 0.75rem;
+            }
+            .hero-slider {
+                height: 65vh;
+                min-height: 300px;
+            }
+            .nav .btn-primary {
+                padding: 4px 10px;
+                font-size: 0.7rem;
+            }
+            .logo {
+                font-size: 1rem;
+            }
+            .logo-icon {
+                width: 24px;
+                height: 24px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Landscape phones */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero-slider {
+                height: 90vh;
+                max-height: 500px;
+                min-height: 300px;
+            }
+            .slide {
+                padding-top: 5%;
+            }
+            .slide-content h1 {
+                font-size: 1.4rem;
+            }
+            .slide-content p {
+                font-size: 0.8rem;
+                margin-bottom: 12px;
+            }
+            .slide-content .slide-actions .btn-gold {
+                padding: 6px 16px;
+                font-size: 0.75rem;
+            }
+            .slide-content .slide-actions .btn-outline-light {
+                padding: 6px 14px;
+                font-size: 0.75rem;
+            }
+            .slider-controls {
+                bottom: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== ANNOUNCEMENT BAR ===== -->
+    <div class="announcement-bar" id="announcementBar">
+        <span>
+            <i class="fas fa-bullhorn" style="margin-right:4px;"></i>
+            <strong>NEW:</strong> Earn <span class="highlight">4.50% APY</span> on Chase Savings accounts.
+            <a href="#">Learn More</a>
+        </span>
+        <button class="close-announce" id="closeAnnounce" aria-label="Close announcement">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="header">
+        <div class="nav">
+            <div class="nav-left">
+                <a href="#" class="logo">
+                    <span class="logo-icon">C</span>
+                    Chase
+                </a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#" class="active">Personal</a></li>
+                    <li><a href="#">Business</a></li>
+                    <li><a href="#">Investments</a></li>
+                    <li><a href="#">Mortgage</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <button class="btn btn-outline btn-sm" id="loginBtn">
+                    <i class="fas fa-user"></i> Log In
+                </button>
+                <button class="btn btn-primary btn-sm">Open Account</button>
+                <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== HERO SLIDER ===== -->
+    <section class="hero-slider" id="heroSlider">
+        <div class="slider-track" id="sliderTrack">
+            <!-- SLIDE 1 -->
+            <div class="slide slide-1">
+                <div class="slide-content">
+                    <span class="badge"><i class="fas fa-star" style="margin-right:4px;"></i> #1 Rated Bank</span>
+                    <h1>Banking that <span class="gold">works for you</span></h1>
+                    <p>From everyday checking to wealth management — Chase gives you the tools, insights, and support to make the most of your money.</p>
+                    <div class="slide-actions">
+                        <button class="btn-gold"><i class="fas fa-arrow-right"></i> Open Account</button>
+                        <button class="btn-outline-light"><i class="fas fa-play-circle"></i> See How It Works</button>
+                    </div>
+                </div>
+                <div class="slide-card">
+                    <div class="card-top">
+                        <span class="card-label">Chase Premier Plus</span>
+                        <span class="card-chip"><i class="fas fa-microchip"></i></span>
+                    </div>
+                    <div class="card-balance">$12,845.92</div>
+                    <div class="card-balance-sub">Available balance • Updated just now</div>
+                    <div class="card-footer">
+                        <span>**** 4829</span>
+                        <span>Exp. 08/28</span>
+                        <span><i class="fas fa-credit-card"></i></span>
+                    </div>
+                </div>
+                <div class="slide-visual">
+                    <div class="circle-bg">
+                        <div class="icon-wrap">
+                            <i class="fas fa-wallet"></i>
+                            <span class="label">Smart Banking</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 2 -->
+            <div class="slide slide-2">
+                <div class="slide-content">
+                    <span class="badge"><i class="fas fa-robot" style="margin-right:4px;"></i> AI-Powered</span>
+                    <h1>Invest smarter with <span class="gold">AI insights</span></h1>
+                    <p>Get personalized investment recommendations, market alerts, and portfolio analysis — all powered by advanced machine learning.</p>
+                    <div class="slide-actions">
+                        <button class="btn-gold"><i class="fas fa-chart-line"></i> Start Investing</button>
+                        <button class="btn-outline-light">Learn More</button>
+                    </div>
+                </div>
+                <div class="slide-card">
+                    <div class="card-top">
+                        <span class="card-label">Investment Portfolio</span>
+                        <span class="card-chip"><i class="fas fa-chart-pie"></i></span>
+                    </div>
+                    <div class="card-balance">$67,890.45</div>
+                    <div class="card-balance-sub">+12.4% this year • 23 holdings</div>
+                    <div class="card-footer">
+                        <span>Diversified</span>
+                        <span>Risk: Moderate</span>
+                        <span><i class="fas fa-arrow-up" style="color:#4CAF50;"></i> +2.1%</span>
+                    </div>
+                </div>
+                <div class="slide-visual">
+                    <div class="circle-bg">
+                        <div class="icon-wrap">
+                            <i class="fas fa-chart-pie"></i>
+                            <span class="label">AI Insights</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3 -->
+            <div class="slide slide-3">
+                <div class="slide-content">
+                    <span class="badge"><i class="fas fa-shield-alt" style="margin-right:4px;"></i> 24/7 Security</span>
+                    <h1>Your money is <span class="gold">always protected</span></h1>
+                    <p>Advanced encryption, real-time fraud monitoring, and zero-liability protection — so you can bank with complete peace of mind.</p>
+                    <div class="slide-actions">
+                        <button class="btn-gold"><i class="fas fa-shield"></i> Learn About Security</button>
+                        <button class="btn-outline-light">Contact Support</button>
+                    </div>
+                </div>
+                <div class="slide-card">
+                    <div class="card-top">
+                        <span class="card-label">Security Status</span>
+                        <span class="card-chip"><i class="fas fa-check-circle" style="color:#4CAF50;"></i></span>
+                    </div>
+                    <div class="card-balance" style="font-size:1.6rem;">🔒 Protected</div>
+                    <div class="card-balance-sub">Zero-liability guarantee • 24/7 monitoring</div>
+                    <div class="card-footer">
+                        <span>Encryption: AES-256</span>
+                        <span>2FA Enabled</span>
+                        <span><i class="fas fa-check" style="color:#4CAF50;"></i> Secure</span>
+                    </div>
+                </div>
+                <div class="slide-visual">
+                    <div class="circle-bg">
+                        <div class="icon-wrap">
+                            <i class="fas fa-shield-alt"></i>
+                            <span class="label">Bank Safe</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4 -->
+            <div class="slide slide-4">
+                <div class="slide-content">
+                    <span class="badge"><i class="fas fa-globe" style="margin-right:4px;"></i> Global Banking</span>
+                    <h1>Bank anywhere, <span class="gold">anytime</span></h1>
+                    <p>Access your accounts from over 4,900 branches worldwide. Seamless international transfers and multi-currency accounts.</p>
+                    <div class="slide-actions">
+                        <button class="btn-gold"><i class="fas fa-globe-americas"></i> Explore Global</button>
+                        <button class="btn-outline-light">Find a Branch</button>
+                    </div>
+                </div>
+                <div class="slide-card">
+                    <div class="card-top">
+                        <span class="card-label">Global Access</span>
+                        <span class="card-chip"><i class="fas fa-map-marker-alt" style="color:var(--chase-gold);"></i></span>
+                    </div>
+                    <div class="card-balance" style="font-size:1.6rem;">🌍 4,900+ Branches</div>
+                    <div class="card-balance-sub">Available in 60+ countries</div>
+                    <div class="card-footer">
+                        <span>24/7 Support</span>
+                        <span>Multi-currency</span>
+                        <span><i class="fas fa-plane" style="color:var(--chase-gold);"></i> Travel Ready</span>
+                    </div>
+                </div>
+                <div class="slide-visual">
+                    <div class="circle-bg">
+                        <div class="icon-wrap">
+                            <i class="fas fa-globe-americas"></i>
+                            <span class="label">Worldwide</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slider Controls -->
+        <div class="slider-controls" id="sliderControls">
+            <button class="dot active" data-index="0" aria-label="Slide 1"></button>
+            <button class="dot" data-index="1" aria-label="Slide 2"></button>
+            <button class="dot" data-index="2" aria-label="Slide 3"></button>
+            <button class="dot" data-index="3" aria-label="Slide 4"></button>
+        </div>
+
+        <div class="slider-arrows">
+            <button id="prevSlide" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+            <button id="nextSlide" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES SECTION ===== -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Banking made <span style="color:var(--chase-gold);">simple</span></h2>
+                <p class="section-subtitle">Everything you need to manage, grow, and protect your money — all in one place.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="f-icon"><i class="fas fa-mobile-alt"></i></span>
+                    <h4>Mobile Banking</h4>
+                    <p>Manage your accounts, deposit checks, transfer money, and pay bills from anywhere with our award-winning app.</p>
+                    <span class="badge">4.9 ★ App Store</span>
+                </div>
+                <div class="feature-card">
+                    <span class="f-icon"><i class="fas fa-credit-card"></i></span>
+                    <h4>Smart Cards</h4>
+                    <p>Choose from cash-back, travel rewards, or low APR cards with real-time spending insights and fraud alerts.</p>
+                    <span class="badge">0% Intro APR</span>
+                </div>
+                <div class="feature-card">
+                    <span class="f-icon"><i class="fas fa-chart-line"></i></span>
+                    <h4>Investment Tools</h4>
+                    <p>Build a diversified portfolio with AI-driven recommendations, automatic rebalancing, and expert guidance.</p>
+                    <span class="badge">AI Powered</span>
+                </div>
+                <div class="feature-card">
+                    <span class="f-icon"><i class="fas fa-home"></i></span>
+                    <h4>Home Loans</h4>
+                    <p>Competitive mortgage rates, refinancing options, and home equity lines — tailored to your financial goals.</p>
+                    <span class="badge">Rates as low as 5.99%</span>
+                </div>
+                <div class="feature-card">
+                    <span class="f-icon"><i class="fas fa-shield-alt"></i></span>
+                    <h4>Fraud Protection</h4>
+                    <p>24/7 monitoring, zero-liability guarantee, and advanced encryption keep your accounts and identity safe.</p>
+                    <span class="badge">100% Secure</span>
+                </div>
+                <div class="feature-card">
+                    <span class="f-icon"><i class="fas fa-piggy-bank"></i></span>
+                    <h4>Savings & CDs</h4>
+                    <p>Earn competitive rates with high-yield savings, certificates of deposit, and automated savings tools.</p>
+                    <span class="badge">4.50% APY</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STATS SECTION ===== -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3 id="statCustomers">0</h3>
+                    <p>Active Customers</p>
+                </div>
+                <div class="stat-item">
+                    <h3 id="statBranches">0</h3>
+                    <p>Branches Worldwide</p>
+                </div>
+                <div class="stat-item">
+                    <h3 id="statApps">0</h3>
+                    <p>App Downloads</p>
+                </div>
+                <div class="stat-item">
+                    <h3 id="statTransactions">0</h3>
+                    <p>Daily Transactions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES / PRODUCTS ===== -->
+    <section class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Explore our <span style="color:var(--chase-gold);">services</span></h2>
+                <p class="section-subtitle">From everyday banking to wealth management — we've got you covered.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="s-icon"><i class="fas fa-wallet"></i></span>
+                    <h5>Checking Accounts</h5>
+                    <p>Everyday banking with no monthly fees and rewards.</p>
+                </div>
+                <div class="service-card">
+                    <span class="s-icon"><i class="fas fa-piggy-bank"></i></span>
+                    <h5>Savings Accounts</h5>
+                    <p>High-yield savings with competitive APY.</p>
+                </div>
+                <div class="service-card">
+                    <span class="s-icon"><i class="fas fa-credit-card"></i></span>
+                    <h5>Credit Cards</h5>
+                    <p>Cash back, travel, and low APR options.</p>
+                </div>
+                <div class="service-card">
+                    <span class="s-icon"><i class="fas fa-home"></i></span>
+                    <h5>Mortgages</h5>
+                    <p>Home loans, refinancing, and HELOC.</p>
+                </div>
+                <div class="service-card">
+                    <span class="s-icon"><i class="fas fa-chart-pie"></i></span>
+                    <h5>Investments</h5>
+                    <p>Stocks, bonds, ETFs, and retirement.</p>
+                </div>
+                <div class="service-card">
+                    <span class="s-icon"><i class="fas fa-hand-holding-usd"></i></span>
+                    <h5>Business Banking</h5>
+                    <p>Accounts, loans, and merchant services.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What our <span style="color:var(--chase-gold);">customers say</span></h2>
+                <p class="section-subtitle">Real stories from real people who trust Chase with their financial lives.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <blockquote>"The mobile app is incredible — I can manage everything from my phone. The fraud alerts give me peace of mind."</blockquote>
+                    <div class="author">
+                        <div class="avatar">S</div>
+                        <div class="info">
+                            <div class="name">Sarah M.</div>
+                            <div class="role">Small Business Owner</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <blockquote>"Chase helped me buy my first home. The mortgage team was with me every step of the way. Truly outstanding service."</blockquote>
+                    <div class="author">
+                        <div class="avatar">J</div>
+                        <div class="info">
+                            <div class="name">James T.</div>
+                            <div class="role">First-Time Homebuyer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                    <blockquote>"The investment tools are fantastic. I've grown my portfolio significantly with the AI-powered recommendations."</blockquote>
+                    <div class="author">
+                        <div class="avatar">A</div>
+                        <div class="info">
+                            <div class="name">Amanda R.</div>
+                            <div class="role">Investor</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA BANNER ===== -->
+    <section class="cta-banner">
+        <div class="container">
+            <h2>Ready to take control of your finances?</h2>
+            <p>Join millions of customers who trust Chase for their banking, investing, and lending needs.</p>
+            <button class="btn-gold" id="ctaBtn">
+                <i class="fas fa-arrow-right"></i> Get Started Today
+            </button>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <span class="logo-icon">C</span>
+                    Chase
+                </a>
+                <p>Chase is a leading financial institution committed to helping you achieve your goals with innovative products and exceptional service.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Personal</h4>
+                <ul>
+                    <li><a href="#">Checking</a></li>
+                    <li><a href="#">Savings</a></li>
+                    <li><a href="#">Credit Cards</a></li>
+                    <li><a href="#">Mortgages</a></li>
+                    <li><a href="#">Investments</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Fraud Center</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Chase</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Investor Relations</a></li>
+                    <li><a href="#">Newsroom</a></li>
+                    <li><a href="#">ESG & Impact</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Chase Bank. All rights reserved.</span>
+                <div class="legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Cookie Preferences</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // ===== HERO SLIDER =====
+            const track = document.getElementById('sliderTrack');
+            const slides = track.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.getElementById('prevSlide');
+            const nextBtn = document.getElementById('nextSlide');
+            let currentSlide = 0;
+            let totalSlides = slides.length;
+            let slideInterval;
+            let isTransitioning = false;
+
+            function goToSlide(index) {
+                if (isTransitioning) return;
+                if (index < 0) index = totalSlides - 1;
+                if (index >= totalSlides) index = 0;
+                isTransitioning = true;
+                currentSlide = index;
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentSlide);
+                });
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 850);
+            }
+
+            function nextSlide() {
+                stopSlider();
+                goToSlide(currentSlide + 1);
+                startSlider();
+            }
+
+            function prevSlide() {
+                stopSlider();
+                goToSlide(currentSlide - 1);
+                startSlider();
+            }
+
+            function startSlider() {
+                if (slideInterval) clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, 6000);
+            }
+
+            function stopSlider() {
+                if (slideInterval) {
+                    clearInterval(slideInterval);
+                    slideInterval = null;
+                }
+            }
+
+            // Dot click
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    if (index === currentSlide) return;
+                    stopSlider();
+                    goToSlide(index);
+                    startSlider();
+                });
+            });
+
+            // Arrow buttons
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+
+            // Touch / swipe support with passive listeners
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchEndX = 0;
+            let isSwiping = false;
+            const slider = document.getElementById('heroSlider');
+
+            slider.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+                isSwiping = true;
+                stopSlider();
+            }, { passive: true });
+
+            slider.addEventListener('touchmove', (e) => {
+                if (!isSwiping) return;
+                const dx = e.changedTouches[0].screenX - touchStartX;
+                const dy = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 20) {
+                    e.preventDefault(); // prevent scroll only when horizontal swipe
+                }
+            }, { passive: false });
+
+            slider.addEventListener('touchend', (e) => {
+                if (!isSwiping) return;
+                isSwiping = false;
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        stopSlider();
+                        goToSlide(currentSlide + 1);
+                        startSlider();
+                    } else {
+                        stopSlider();
+                        goToSlide(currentSlide - 1);
+                        startSlider();
+                    }
+                } else {
+                    startSlider();
+                }
+            }, { passive: true });
+
+            // Pause on hover (desktop)
+            slider.addEventListener('mouseenter', stopSlider);
+            slider.addEventListener('mouseleave', startSlider);
+
+            // Start autoplay
+            startSlider();
+
+            // ===== STATS COUNTER =====
+            function animateCounter(el, target, suffix = '') {
+                let current = 0;
+                const increment = Math.ceil(target / 80);
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    el.textContent = current.toLocaleString() + suffix;
+                }, 20);
+            }
+
+            animateCounter(document.getElementById('statCustomers'), 12400000, '+');
+            animateCounter(document.getElementById('statBranches'), 4900, '+');
+            animateCounter(document.getElementById('statApps'), 8700000, '+');
+            animateCounter(document.getElementById('statTransactions'), 28400000, '+');
+
+            // ===== ANNOUNCEMENT BAR =====
+            document.getElementById('closeAnnounce').addEventListener('click', () => {
+                document.getElementById('announcementBar').style.display = 'none';
+            });
+
+            // ===== HEADER SCROLL =====
+            let lastScroll = 0;
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('header');
+                const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                if (currentScroll > 20) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                lastScroll = currentScroll;
+            }, { passive: true });
+
+            // ===== HAMBURGER =====
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('open');
+            });
+
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('open');
+                });
+            });
+
+            // ===== LOGIN BUTTON =====
+            document.getElementById('loginBtn').addEventListener('click', () => {
+                alert('🔐 Welcome to Chase Online Banking. Please enter your credentials to continue.');
+            });
+
+            // ===== CTA BUTTON =====
+            document.getElementById('ctaBtn').addEventListener('click', () => {
+                alert('🚀 Thank you for choosing Chase! Get started with your account today.');
+            });
+
+            // ===== FEATURE CARD INTERACTION =====
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('h4').textContent;
+                    alert(`📌 ${title} — Learn more about this service on our website.`);
+                });
+            });
+
+            // ===== SERVICE CARD INTERACTION =====
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('h5').textContent;
+                    alert(`📌 ${title} — Explore our full range of services.`);
+                });
+            });
+
+            // ===== TESTIMONIAL CARDS =====
+            document.querySelectorAll('.testimonial-card').forEach((card) => {
+                card.addEventListener('click', function() {
+                    const name = this.querySelector('.name').textContent;
+                    alert(`⭐ Read more reviews from ${name} and other satisfied customers.`);
+                });
+            });
+
+            // ===== KEYBOARD SHORTCUT: Arrow keys for slider =====
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    stopSlider();
+                    goToSlide(currentSlide - 1);
+                    startSlider();
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    stopSlider();
+                    goToSlide(currentSlide + 1);
+                    startSlider();
+                }
+            });
+
+            // ===== RESIZE HANDLER: ensure slider track is correct =====
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    // Just reset transform to current slide to avoid glitches
+                    track.style.transition = 'none';
+                    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+                    requestAnimationFrame(() => {
+                        track.style.transition = '';
+                    });
+                }, 200);
+            }, { passive: true });
+
+            console.log('🏦 Chase Banking Website loaded successfully.');
+            console.log('💡 Use arrow keys ← → to navigate the hero slider.');
+        });
+    </script>
+
+</body>
+</html>
